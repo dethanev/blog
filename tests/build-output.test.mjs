@@ -97,6 +97,7 @@ test("primary navigation identifies the current page", async () => {
     ["blog/index.html", "/blog/"],
     ["blog/2026-05-15-hello-world/index.html", "/blog/"],
     ["now/index.html", "/now/"],
+    ["projects/index.html", "/projects/"],
   ];
 
   for (const [page, href] of cases) {

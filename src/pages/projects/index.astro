@@ -1,0 +1,339 @@
+---
+import BaseLayout from "~/layouts/BaseLayout.astro";
+import { Image } from "astro:assets";
+import { projects } from "~/data/projects";
+
+const liveProjects = projects.filter((p) => p.featured);
+const otherProjects = projects.filter((p) => !p.featured);
+---
+
+<BaseLayout title="作品" description="Dethanev 的作品集：已上線的 QuizLab 智慧考題學習實驗室、AlgoLab 演算法視覺化實驗室，以及 App 原型與專案練習。">
+  <div class="projects-bg">
+  <section class="projects">
+    <header class="head">
+      <h1 class="big-title">
+        <span class="line">作品</span>
+        <span class="line accent">WORK.</span>
+      </h1>
+    </header>
+
+    <section class="group" aria-labelledby="live-title">
+      <h2 id="live-title" class="block-title">
+        <span class="badge">live labs</span>
+      </h2>
+      <div class="live-grid" data-stagger>
+        {liveProjects.map((p) => (
+          <article class="live-card brutal-border-thick brutal-shadow" data-stagger-item>
+            {p.image && (
+              <a
+                href={p.siteUrl}
+                target="_blank"
+                rel="noopener"
+                class="live-media"
+                tabindex="-1"
+                aria-hidden="true"
+              >
+                <Image
+                  class="live-image"
+                  src={p.image.src}
+                  alt={p.image.alt}
+                  width={720}
+                  format="webp"
+                  quality={85}
+                  loading="lazy"
+                />
+              </a>
+            )}
+            <div class="live-body">
+              <div class="card-head">
+                <h3 class="card-name">{p.name}</h3>
+                <span class:list={["status", `status-${p.color}`]}>{p.status}</span>
+              </div>
+              <p class="card-desc">{p.description}</p>
+              <ul class="stack" aria-label={`${p.name} 使用技術`}>
+                {p.stack.map((s) => <li>{s}</li>)}
+              </ul>
+              <div class="actions">
+                {p.siteUrl && (
+                  <a
+                    href={p.siteUrl}
+                    target="_blank"
+                    rel="noopener"
+                    class:list={["btn brutal-border brutal-shadow-sm brutal-hover", `btn-${p.color}`]}
+                  >
+                    開啟 {p.name} <span aria-hidden="true">↗</span>
+                  </a>
+                )}
+                {p.href && (
+                  <a href={p.href} class="btn btn-paper brutal-border brutal-shadow-sm brutal-hover">
+                    開發紀錄 <span aria-hidden="true">→</span>
+                  </a>
+                )}
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="group" aria-labelledby="more-title">
+      <h2 id="more-title" class="block-title">
+        <span class="badge yellow">more work</span>
+      </h2>
+      <div class="more-grid" data-stagger>
+        {otherProjects.map((p) => (
+          <a
+            href={p.href}
+            class:list={["more-card brutal-border-thick brutal-shadow brutal-hover", `card-${p.color}`]}
+            aria-label={`閱讀 ${p.name} 相關文章`}
+            data-stagger-item
+          >
+            <div class="card-head">
+              <h3 class="card-name">{p.name}</h3>
+              <span class="tag">{p.status}</span>
+            </div>
+            <p class="card-desc">{p.description}</p>
+            <p class="more-foot">
+              <span class="more-stack">{p.stack.join(" · ")}</span>
+              <span class="arrow" aria-hidden="true">→</span>
+            </p>
+          </a>
+        ))}
+      </div>
+    </section>
+
+    <a href="https://github.com/dethanev" target="_blank" rel="noopener" class="github-link">
+      更多程式碼在 GitHub @dethanev <span aria-hidden="true">↗</span>
+    </a>
+  </section>
+  </div>
+</BaseLayout>
+
+<style>
+  /* Same grid as the home hero (.grid-bg), but across the whole page */
+  .projects-bg {
+    /* Extend up behind the sticky nav so the grid reaches the top of the page */
+    margin-top: -8rem;
+    padding: 11rem 0 6rem;
+    background-image:
+      linear-gradient(to right, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+  .projects {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 1.5rem;
+    box-sizing: border-box;
+    display: grid;
+    gap: 3.5rem;
+  }
+  .projects > * { min-width: 0; }
+
+  .big-title {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(3rem, 9vw, 5.5rem);
+    line-height: 0.92;
+    margin-bottom: 0;
+  }
+  .big-title .line { display: block; }
+  .big-title .accent {
+    background: var(--accent-pink);
+    color: var(--text-on-pink);
+    border: 4px solid var(--ink);
+    box-shadow: 8px 8px 0 0 var(--shadow-color);
+    padding: 0.08em 0.15em 0.1em;
+    display: inline-block;
+    margin-top: 0.1em;
+  }
+
+  .block-title { margin-bottom: 1.4rem; }
+  .badge {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 0.85rem;
+    background: var(--accent-pink);
+    color: var(--text-on-pink);
+    border: 3px solid var(--ink);
+    padding: 0.2em 0.7em;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+  .badge.yellow { background: var(--accent-yellow); color: var(--text-on-yellow); }
+
+  .card-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.8rem;
+    flex-wrap: wrap;
+  }
+  .card-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    line-height: 1;
+    letter-spacing: -0.02em;
+  }
+  .card-desc {
+    line-height: 1.65;
+  }
+
+  /* Live labs */
+  .live-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 2rem;
+  }
+  .live-card {
+    background: var(--paper);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  /* Mouse/touch shortcut to the site; keyboard users use the button below */
+  .live-media {
+    display: block;
+    overflow: hidden;
+    border-bottom: 4px solid var(--ink);
+  }
+  .live-media :global(.live-image) {
+    transition: transform 0.18s ease;
+  }
+  .live-media:hover :global(.live-image) {
+    transform: scale(1.03);
+  }
+  .live-card :global(.live-image) {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+  }
+  .live-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.4rem 1.5rem 1.6rem;
+  }
+  .status {
+    font-family: var(--font-mono);
+    font-weight: 800;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 2px solid var(--ink);
+    padding: 0.2em 0.6em;
+  }
+  .status-lime { background: var(--accent-lime); color: var(--text-on-lime); }
+  .status-pink { background: var(--accent-pink); color: var(--text-on-pink); }
+  .stack {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin: 0;
+    padding: 0;
+  }
+  .stack li {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+    border: 2px solid var(--ink);
+    padding: 0.15em 0.55em;
+  }
+  .actions {
+    margin-top: auto;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+    padding-top: 0.4rem;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    min-height: 44px;
+    box-sizing: border-box;
+    padding: 0.55rem 1rem;
+    font-family: var(--font-display);
+    font-weight: 800;
+    font-size: 0.95rem;
+    text-decoration: none;
+  }
+  .btn-lime { background: var(--accent-lime); color: var(--text-on-lime); }
+  .btn-pink { background: var(--accent-pink); color: var(--text-on-pink); }
+  .btn-paper { background: var(--paper); color: var(--ink); }
+
+  /* More work */
+  .more-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.6rem;
+  }
+  .more-card {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    padding: 1.3rem 1.4rem 1.2rem;
+    color: var(--ink);
+    text-decoration: none;
+    background: var(--paper);
+  }
+  .more-card.card-pink { background: var(--accent-pink); color: var(--text-on-pink); }
+  .more-card.card-yellow { background: var(--accent-yellow); color: var(--text-on-yellow); }
+  .more-card.card-lime { background: var(--accent-lime); color: var(--text-on-lime); }
+  .more-card.card-violet { background: var(--accent-violet); color: var(--text-on-violet); }
+  .more-card .card-desc { font-size: 0.95rem; }
+  .tag {
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border: 2px solid currentColor;
+    padding: 0.15em 0.55em;
+  }
+  .more-foot {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.8rem;
+    border-top: 2px dashed color-mix(in oklab, currentColor 35%, transparent);
+    padding-top: 0.8rem;
+  }
+  .more-stack {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: 700;
+  }
+  .arrow {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: 1.4rem;
+    line-height: 1;
+  }
+
+  .github-link {
+    justify-self: start;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 3px solid var(--accent-pink);
+    padding-bottom: 2px;
+  }
+  .github-link:hover { background: var(--accent-yellow); color: var(--text-on-yellow); }
+
+  @media (max-width: 860px) {
+    .more-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  @media (max-width: 720px) {
+    .live-grid,
+    .more-grid { grid-template-columns: 1fr; }
+    .big-title .accent { box-sizing: border-box; max-width: 100%; }
+  }
+</style>
