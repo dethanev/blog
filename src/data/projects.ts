@@ -32,7 +32,7 @@ export const projects: Project[] = [
     name: "AlgoLab",
     description: "演算法視覺化實驗室・貼上 Python 程式碼，透過逐步執行、變數追蹤與資料結構視覺化，幫助理解程式邏輯與演算法原理，並能自由控制執行步驟，讓抽象的演算法變得更直觀。",
     status: "Live",
-    color: "pink",
+    color: "yellow",
     stack: ["Nuxt", "Pyodide", "CodeMirror", "Web Worker"],
     siteUrl: "https://algolab.dethanev.app/",
     image: { src: algolabImage, alt: "演算法視覺化實驗室 Dethanev AlgoLab 網站封面" },
