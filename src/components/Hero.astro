@@ -17,8 +17,9 @@ import Sticker from "./Sticker.astro";
       <span class="line">I'M <em>DETHANEV</em>.</span>
     </h1>
 
-    <p class="hero-sub">
-      <span class="zh">資工系學生，喜歡把學習中的想法，變成真正能使用的工具。</span>
+    <p class="hero-sub" aria-hidden="true">
+      <span class="zh">&nbsp;</span>
+      <span class="en">&nbsp;</span>
     </p>
 
     <div class="hero-stickers">
@@ -123,9 +124,16 @@ import Sticker from "./Sticker.astro";
     margin: 0 auto 2.4rem;
     font-size: clamp(1rem, 1.3vw, 1.15rem);
     line-height: 1.55;
-    text-wrap: balance;
   }
   .hero-sub .zh { display: block; }
+  .hero-sub .en {
+    display: block;
+    margin-top: 0.4rem;
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    color: var(--muted);
+    letter-spacing: -0.01em;
+  }
   .hero-stickers {
     display: flex;
     gap: 1rem;
