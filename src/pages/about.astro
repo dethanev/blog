@@ -189,7 +189,7 @@ const stackGroups = [
 
 <BaseLayout title="關於" description="關於 Dethanev：Dethanev 的個人介紹、作品集與開發紀錄。台灣資工學生，專注 App、後端服務、自架系統與資料驅動應用。">
   <section class="about">
-    <div class="hero-block">
+    <div class="hero-block grid-clear">
       <h1 class="big-title">
         <span class="line">關於</span>
         <span class="line accent">DETHANEV.</span>
@@ -225,7 +225,7 @@ const stackGroups = [
     </div>
 
     <div class="text-block intro-section">
-      <div class="intro-copy">
+      <div class="intro-copy grid-clear">
         <h2 class="block-title">
           <span class="badge yellow">background</span>
         </h2>
@@ -270,7 +270,7 @@ const stackGroups = [
       <h2 class="block-title">
         <span class="badge pink">projects</span>
       </h2>
-      <div class="project-list">
+      <div class="project-list grid-clear">
         {projects.map((project) => (
           <a class="project-row" href={project.href} aria-label={`閱讀 ${project.name} 文章`}>
             <div class="project-head">
@@ -331,7 +331,7 @@ const stackGroups = [
       <h2 class="block-title">
         <span class="badge pink">certifications</span>
       </h2>
-      <p class="certifications-intro">
+      <p class="certifications-intro grid-clear">
         這些證照記錄了我在不同階段完成的學習成果；其中部分來自學校提供的培訓與獎學金機會。
         它們不是技術能力的全部，但汽車修護、程式與工具能力，也確實影響了我後來選擇的專案方向。
       </p>
@@ -379,11 +379,11 @@ const stackGroups = [
       <h2 class="block-title">
         <span class="badge violet">direction</span>
       </h2>
-      <p>
+      <p class="grid-clear">
         學術和職涯上，我目前關注軟體工程、系統架構、資料驅動應用與實務型研究。
         接下來希望累積更完整的作品集，也會把研究計畫或研究所申請需要的技術脈絡慢慢整理出來。
       </p>
-      <p>
+      <p class="grid-clear">
         長期目標很簡單：成為能把前端、後端、資料和部署串起來的全端開發者。
         不是每個領域都假裝自己最強，而是能理解系統全貌，知道問題卡在哪裡，然後把它修到能用。
       </p>
@@ -393,7 +393,7 @@ const stackGroups = [
       <h2 class="block-title">
         <span class="badge pink">what's here</span>
       </h2>
-      <ul class="list">
+      <ul class="list grid-clear">
         <li><strong>/blog</strong> — dev 筆記、專案反思、工具踩坑</li>
         <li><strong>/now</strong> — 我現在正在做什麼，不是履歷頁</li>
         <li><strong>/about</strong> — 公開版自介，也就是你現在看的東西</li>

@@ -115,11 +115,38 @@ html.lenis body {
 }
 
 body {
-  background: var(--bg);
   color: var(--ink);
   min-height: 100dvh;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: color 0.3s ease;
+}
+
+/* Page grid behind everything; text sitting directly on it uses .grid-clear */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(to right, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* Clears the grid under text and fades it back in over ~120px around it.
+   z-index -1 keeps the halo under cards and other boxes. */
+.grid-clear {
+  position: relative;
+}
+.grid-clear::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: var(--bg);
+  box-shadow: 0 0 120px 60px var(--bg);
 }
 
 .skip-link {

@@ -8,9 +8,8 @@ const otherProjects = projects.filter((p) => !p.featured);
 ---
 
 <BaseLayout title="作品" description="Dethanev 的作品集：已上線的 QuizLab 智慧考題學習實驗室、AlgoLab 演算法視覺化實驗室，以及 App 原型與專案練習。">
-  <div class="projects-bg">
   <section class="projects">
-    <header class="head">
+    <header class="head grid-clear">
       <h1 class="big-title">
         <span class="line">作品</span>
         <span class="line accent">WORK.</span>
@@ -102,27 +101,16 @@ const otherProjects = projects.filter((p) => !p.featured);
       </div>
     </section>
 
-    <a href="https://github.com/dethanev" target="_blank" rel="noopener" class="github-link">
+    <a href="https://github.com/dethanev" target="_blank" rel="noopener" class="github-link grid-clear">
       更多程式碼在 GitHub @dethanev <span aria-hidden="true">↗</span>
     </a>
   </section>
-  </div>
 </BaseLayout>
 
 <style>
-  /* Same grid as the home hero (.grid-bg), but across the whole page */
-  .projects-bg {
-    /* Extend up behind the sticky nav so the grid reaches the top of the page */
-    margin-top: -8rem;
-    padding: 11rem 0 6rem;
-    background-image:
-      linear-gradient(to right, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in oklab, var(--ink) 8%, transparent) 1px, transparent 1px);
-    background-size: 48px 48px;
-  }
   .projects {
     max-width: 1100px;
-    margin: 0 auto;
+    margin: 3rem auto 6rem;
     padding: 0 1.5rem;
     box-sizing: border-box;
     display: grid;

@@ -44,6 +44,11 @@ import Sticker from "./Sticker.astro";
     justify-content: center;
     overflow: hidden;
     padding: 6rem 1.5rem 4rem;
+    /* Hide the page grid here so only the hero's own faded grid shows.
+       First shadow covers the strip behind the nav; second fades the grid
+       back in below the hero, matching .grid-clear. */
+    background-color: var(--bg);
+    box-shadow: 0 -12rem 0 0 var(--bg), 0 0 120px 60px var(--bg);
   }
   .grid-bg {
     position: absolute;
