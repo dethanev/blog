@@ -7,6 +7,7 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
+    "check": "astro check",
     "check:contrast": "node --test tests/theme-contrast.test.mjs",
     "check:build-output": "npm run build && node --test tests/build-output.test.mjs",
     "check:og": "node --test tests/og-image.test.mjs",
@@ -27,6 +28,7 @@
     "tailwindcss": "^4.3.3"
   },
   "devDependencies": {
+    "@astrojs/check": "^0.9.12",
     "@types/node": "^22.0.0",
     "typescript": "^5.6.0",
     "vite": "^8.2.1"
