@@ -1,7 +1,33 @@
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { getLenis } from "./lenis";
 
 gsap.registerPlugin(ScrollTrigger);
+
+// Motion boots on the first interaction, so pins may be created after the
+// user has already scrolled. Their spacers then push visible content down;
+// shift the scroll position by the same amount before the next paint.
+function keepViewportStable(init: () => void) {
+  const anchor = Array.from(document.querySelector("main")?.children ?? []).find(
+    (el) => el.getBoundingClientRect().top >= 0,
+  );
+  const before = anchor?.getBoundingClientRect().top;
+
+  init();
+
+  if (!anchor || before === undefined) return;
+  const delta = anchor.getBoundingClientRect().top - before;
+  if (Math.abs(delta) < 1) return;
+
+  const target = window.scrollY + delta;
+  const lenis = getLenis();
+  if (lenis) {
+    lenis.resize();
+    lenis.scrollTo(target, { immediate: true, force: true });
+  } else {
+    window.scrollTo(0, target);
+  }
+}
 
 function initHeroPin() {
   const hero = document.querySelector<HTMLElement>("[data-hero]");
@@ -173,13 +199,15 @@ export function initScrollAnimations() {
   const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   if (reduce) return;
 
-  initHeroPin();
-  initMarquees();
-  initRevealCards();
-  initStaggerGrid();
-  initHorizontalScroll();
-  initReadingProgress();
-  initHeadingUnderlines();
+  keepViewportStable(() => {
+    initHeroPin();
+    initMarquees();
+    initRevealCards();
+    initStaggerGrid();
+    initHorizontalScroll();
+    initReadingProgress();
+    initHeadingUnderlines();
 
-  ScrollTrigger.refresh();
+    ScrollTrigger.refresh();
+  });
 }
