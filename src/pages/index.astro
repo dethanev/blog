@@ -21,11 +21,11 @@ const stack = [
 ];
 
 const projects = [
-  { num: "01", name: "LinkPet", tagline: "比賽專案留下的合作練習\n學會把想法、分工和文件同步清楚。", tag: "Teamwork", color: "pink", href: "/blog/2026-04-18-linkpet-ar-ai-companion" },
-  { num: "02", name: "Tap2Go", tagline: "暑假狂練 Flutter UI 的成果\n算是有收尾的那種。", tag: "Done", color: "yellow", href: "/blog/2026-06-04-projects-that-broke" },
-  { num: "03", name: "this blog", tagline: "你正在看的東西\nAstro + Tailwind v4 + GSAP。", tag: "Live", color: "lime", href: "/blog/2026-05-10-astro-6-tailwind-v4" },
-  { num: "04", name: "DriveWorth", tagline: "汽車維護計算 App 原型\n不是不能做，是我低估資料的重要性。", tag: "Lessons", color: "violet", href: "/blog/2026-02-11-driveworth-app" },
-  { num: "05", name: "HawkGuard", tagline: "預防詐騙 App 原型\n後來發現 Whoscall 已經在前面很遠。", tag: "Archived", color: "paper", href: "/blog/2025-12-03-hawkguard-app" },
+  { num: "01", name: "LinkPet", tagline: "比賽專案留下的合作練習\n學會把想法、分工和文件同步清楚。", tag: "Teamwork", color: "pink", href: "/blog/2026-04-18-linkpet-ar-ai-companion/" },
+  { num: "02", name: "Tap2Go", tagline: "暑假狂練 Flutter UI 的成果\n算是有收尾的那種。", tag: "Done", color: "yellow", href: "/blog/2026-06-04-projects-that-broke/" },
+  { num: "03", name: "this blog", tagline: "你正在看的東西\nAstro + Tailwind v4 + GSAP。", tag: "Live", color: "lime", href: "/blog/2026-05-10-astro-6-tailwind-v4/" },
+  { num: "04", name: "DriveWorth", tagline: "汽車維護計算 App 原型\n不是不能做，是我低估資料的重要性。", tag: "Lessons", color: "violet", href: "/blog/2026-02-11-driveworth-app/" },
+  { num: "05", name: "HawkGuard", tagline: "預防詐騙 App 原型\n後來發現 Whoscall 已經在前面很遠。", tag: "Archived", color: "paper", href: "/blog/2025-12-03-hawkguard-app/" },
 ] as const;
 
 const marqueeItems = [
@@ -59,7 +59,7 @@ const marqueeItems = [
           Hi，我是 Dethanev。私校資工系學生，成績維持在系排前 5%。
           平常寫 App、做後端、折騰自架服務；這裡放 dev 筆記、專案紀錄，還有一些踩坑後才懂的事。
         </p>
-        <a href="/about" class="cta brutal-border-thick brutal-shadow brutal-hover">
+        <a href="/about/" class="cta brutal-border-thick brutal-shadow brutal-hover">
           → 更多關於我
         </a>
       </div>
@@ -72,13 +72,13 @@ const marqueeItems = [
       <h2 class="section-title latest-posts-title">
         <span>LATEST</span><span>POSTS</span>
       </h2>
-      <a href="/blog" class="see-all">全部文章 →</a>
+      <a href="/blog/" class="see-all">全部文章 →</a>
     </header>
 
     <div class="posts-grid">
       {posts.map((p, i) => (
         <PostCard
-          href={`/blog/${p.id}`}
+          href={`/blog/${p.id}/`}
           title={p.data.title}
           description={p.data.description}
           date={p.data.date}
@@ -163,7 +163,7 @@ const marqueeItems = [
 
   <!-- CTA strip -->
   <section class="cta-strip">
-    <a href="/now" class="cta-inner brutal-border-thick brutal-shadow-lg" aria-label="查看我的近況">
+    <a href="/now/" class="cta-inner brutal-border-thick brutal-shadow-lg" aria-label="查看我的近況">
       <p class="cta-text">
         想知道我現在在幹嘛？<br/>
         <span class="cta-link"><span class="cta-arrow" aria-hidden="true">→</span> 看看 /now</span>

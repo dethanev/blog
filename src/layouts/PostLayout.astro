@@ -54,13 +54,13 @@ const minutes = readingTime(rawBody);
 
     <nav class="post-nav">
       {prev ? (
-        <a href={`/blog/${prev.slug}`} class="nav-card prev brutal-border-thick brutal-shadow brutal-hover">
+        <a href={`/blog/${prev.slug}/`} class="nav-card prev brutal-border-thick brutal-shadow brutal-hover">
           <span class="nav-label">← 上一篇</span>
           <span class="nav-title">{prev.title}</span>
         </a>
       ) : <span class="nav-card placeholder">沒有更早的了</span>}
       {next ? (
-        <a href={`/blog/${next.slug}`} class="nav-card next brutal-border-thick brutal-shadow brutal-hover">
+        <a href={`/blog/${next.slug}/`} class="nav-card next brutal-border-thick brutal-shadow brutal-hover">
           <span class="nav-label">下一篇 →</span>
           <span class="nav-title">{next.title}</span>
         </a>

@@ -93,17 +93,29 @@ test("HTML pages expose consistent language, landmarks, and heading levels", asy
 test("primary navigation identifies the current page", async () => {
   const cases = [
     ["index.html", "/"],
-    ["about/index.html", "/about"],
-    ["blog/index.html", "/blog"],
-    ["blog/2026-05-15-hello-world/index.html", "/blog"],
-    ["now/index.html", "/now"],
+    ["about/index.html", "/about/"],
+    ["blog/index.html", "/blog/"],
+    ["blog/2026-05-15-hello-world/index.html", "/blog/"],
+    ["now/index.html", "/now/"],
   ];
 
   for (const [page, href] of cases) {
     const html = await readFile(new URL(page, dist), "utf8");
-    const escapedHref = href.replace("/", "\\/");
+    const escapedHref = href.replaceAll("/", "\\/");
     assert.match(html, new RegExp(`href="${escapedHref}"[^>]*aria-current="page"`), page);
     assert.equal([...html.matchAll(/aria-current="page"/g)].length, 1, page);
+  }
+});
+
+test("internal page links use the trailing-slash canonical form", async () => {
+  // Canonical URLs, sitemap, and RSS all end with "/"; a slashless link costs
+  // a 308 redirect on Cloudflare and points crawlers at a non-canonical URL.
+  for (const page of await getHtmlPages()) {
+    const html = await readFile(page, "utf8");
+    for (const [, href] of html.matchAll(/<a\b[^>]*\shref="(\/[^"#?]*)/g)) {
+      if (path.extname(href)) continue;
+      assert.ok(href.endsWith("/"), `${page.pathname} links to ${href}`);
+    }
   }
 });
 
