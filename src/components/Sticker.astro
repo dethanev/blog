@@ -6,8 +6,11 @@ interface Props {
   rotate?: number;
   size?: "sm" | "md" | "lg";
   class?: string;
+  /** Renders the sticker as a link instead of a button. */
+  href?: string;
 }
-const { text, color = "yellow", rotate = -4, size = "md", class: extraClass = "" } = Astro.props;
+const { text, color = "yellow", rotate = -4, size = "md", class: extraClass = "", href } = Astro.props;
+const Tag = href ? "a" : "button";
 
 const sizeMap = {
   sm: "px-3 py-1.5 text-sm",
@@ -16,8 +19,9 @@ const sizeMap = {
 } as const;
 ---
 
-<button
-  type="button"
+<Tag
+  type={href ? undefined : "button"}
+  href={href}
   data-sticker
   class:list={[
     "sticker brutal-border brutal-shadow-sm",
@@ -28,7 +32,7 @@ const sizeMap = {
   style={`--rotate:${rotate}deg`}
 >
   {text}
-</button>
+</Tag>
 
 <style>
   .sticker {
@@ -41,6 +45,7 @@ const sizeMap = {
     color: var(--ink);
     transition: transform 0.15s ease, box-shadow 0.15s ease;
     user-select: none;
+    text-decoration: none;
   }
   .sticker:hover {
     transform: rotate(0deg) translate(-2px, -2px);

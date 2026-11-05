@@ -49,7 +49,7 @@ export const projects: Project[] = [
   {
     name: "LinkPet",
     description: "AR 與 AI 陪伴 App 概念，讓虛擬角色在 2D / AR 模式出現在生活空間裡，支援語音互動、觸碰與餵食反應。雙人合作的比賽型專案練習。",
-    status: "Teamwork",
+    status: "Prototype",
     color: "pink",
     stack: ["SwiftUI", "ARKit", "RealityKit"],
     href: "/blog/2026-04-18-linkpet-ar-ai-companion/",
@@ -57,7 +57,7 @@ export const projects: Project[] = [
   {
     name: "DriveWorth",
     description: "買車前的養車成本評估工具，用里程節點預算卡把保養、稅金、保險和油耗變成白話的長期成本提醒。",
-    status: "Lessons",
+    status: "Prototype",
     color: "violet",
     stack: ["Flutter", "Data Model"],
     href: "/blog/2026-02-11-driveworth-app/",
@@ -65,7 +65,7 @@ export const projects: Project[] = [
   {
     name: "HawkGuard",
     description: "反詐騙 App 概念，輸入文字、網址、電話或圖片後取得風險提示，並整合分析紀錄與社群回報。",
-    status: "Archived",
+    status: "Prototype",
     color: "paper",
     stack: ["Flutter"],
     href: "/blog/2025-12-03-hawkguard-app/",
@@ -73,7 +73,7 @@ export const projects: Project[] = [
   {
     name: "Tap2Go",
     description: "第一個自己完成的 Flutter App，從環境安裝、頁面切換、互動回饋到 Android APK Release 都走過一次。",
-    status: "Done",
+    status: "Practice",
     color: "yellow",
     stack: ["Flutter", "Dart"],
     href: "/blog/2025-08-07-tap2go-flutter-ui-practice/",

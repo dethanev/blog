@@ -6,27 +6,28 @@ import Marquee from "~/components/Marquee.astro";
 import Sticker from "~/components/Sticker.astro";
 import { getCollection } from "astro:content";
 import { sortPostsNewestFirst } from "~/lib/utils";
+import { Image } from "astro:assets";
+import { projects } from "~/data/projects";
 
 const posts = sortPostsNewestFirst(await getCollection("posts", ({ data }) => !data.draft)).slice(0, 3);
 
 const stack = [
-  { name: "Flutter", note: "App 主力，UI 跟流程都在這裡磨" },
-  { name: "FastAPI", note: "後端 API，先能跑再慢慢補硬" },
-  { name: "Supabase", note: "Postgres + auth\n自架時順便練維運" },
-  { name: "Docker", note: "服務拆開，不要全部塞同一台" },
-  { name: "Proxmox", note: "家裡小機房，VM 跟容器都丟上去" },
-  { name: "Cloudflare", note: "Tunnel 出門，少開一些奇怪的洞" },
-  { name: "Astro", note: "這個 blog，靜態為主動的自己加" },
-  { name: "Ollama", note: "本地 LLM 實驗，Gemma 先玩起來" },
+  { name: "Flutter", note: "跨平台 App 框架\n行動 App 介面開發" },
+  { name: "FastAPI", note: "Python API 框架\n後端服務與資料介面" },
+  { name: "Supabase", note: "Postgres 與驗證\n資料庫與使用者登入" },
+  { name: "Docker", note: "容器化部署\n自架服務拆分與管理" },
+  { name: "Proxmox", note: "虛擬化平台\n家用伺服器 VM 管理" },
+  { name: "Cloudflare", note: "網路與部署平台\nTunnel 與 Pages 上線" },
+  { name: "Astro", note: "靜態網站框架\n內容型網站與部落格" },
+  { name: "Nuxt", note: "Vue 全端框架\n互動式 Web 工具開發" },
+  { name: "Tailwind v4", note: "Utility-first CSS\n設計 token 與排版" },
+  { name: "Pyodide", note: "瀏覽器端 Python\n程式執行與視覺化" },
+  { name: "Ollama", note: "本地 LLM 執行\n模型測試與 AI 實驗" },
+  { name: "IndexedDB", note: "瀏覽器端資料庫\n離線資料與本機儲存" },
 ];
 
-const projects = [
-  { num: "01", name: "LinkPet", tagline: "比賽專案留下的合作練習\n學會把想法、分工和文件同步清楚。", tag: "Teamwork", color: "pink", href: "/blog/2026-04-18-linkpet-ar-ai-companion/" },
-  { num: "02", name: "Tap2Go", tagline: "暑假狂練 Flutter UI 的成果\n算是有收尾的那種。", tag: "Done", color: "yellow", href: "/blog/2026-06-04-projects-that-broke/" },
-  { num: "03", name: "this blog", tagline: "你正在看的東西\nAstro + Tailwind v4 + GSAP。", tag: "Live", color: "lime", href: "/blog/2026-05-10-astro-6-tailwind-v4/" },
-  { num: "04", name: "DriveWorth", tagline: "汽車維護計算 App 原型\n不是不能做，是我低估資料的重要性。", tag: "Lessons", color: "violet", href: "/blog/2026-02-11-driveworth-app/" },
-  { num: "05", name: "HawkGuard", tagline: "預防詐騙 App 原型\n後來發現 Whoscall 已經在前面很遠。", tag: "Archived", color: "paper", href: "/blog/2025-12-03-hawkguard-app/" },
-] as const;
+const liveLabs = projects.filter((p) => p.featured);
+const selectedWork = projects.filter((p) => !p.featured);
 
 const marqueeItems = [
   "BUILDING NOW",
@@ -63,6 +64,43 @@ const marqueeItems = [
           → 更多關於我
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- Live labs -->
+  <section class="section" aria-labelledby="live-labs-title">
+    <header class="section-head grid-clear">
+      <h2 id="live-labs-title" class="section-title">LIVE LABS</h2>
+      <a href="/projects/" class="see-all">全部作品 →</a>
+    </header>
+
+    <div class="labs-grid" data-stagger>
+      {liveLabs.map((p) => (
+        <article class:list={["lab-card brutal-border-thick brutal-shadow", `card-${p.color}`]} data-stagger-item>
+          {p.image && (
+            <a href={p.siteUrl} target="_blank" rel="noopener" class="lab-media" tabindex="-1" aria-hidden="true">
+              <Image
+                class="lab-image"
+                src={p.image.src}
+                alt={p.image.alt}
+                width={640}
+                format="webp"
+                quality={85}
+                loading="lazy"
+              />
+            </a>
+          )}
+          <div class="lab-body">
+            <h3 class="lab-name">{p.name}</h3>
+            <p class="lab-desc">{p.description}</p>
+            {p.siteUrl && (
+              <a href={p.siteUrl} target="_blank" rel="noopener" class="lab-link brutal-border brutal-shadow-sm brutal-hover">
+                開啟 {p.name} <span aria-hidden="true">↗</span>
+              </a>
+            )}
+          </div>
+        </article>
+      ))}
     </div>
   </section>
 
@@ -112,27 +150,27 @@ const marqueeItems = [
         </div>
       </div>
 
-      {projects.map((p) => (
+      {selectedWork.map((p, i) => (
         <a
           href={p.href}
           class:list={["h-card brutal-border-thick brutal-shadow", `card-${p.color}`]}
           aria-label={`閱讀 ${p.name} 相關文章`}
         >
-          <span class="h-num">{p.num}</span>
+          <span class="h-num">{String(i + 1).padStart(2, "0")}</span>
           <div class="h-card-body">
             <h3 class="h-name">{p.name}</h3>
-            <p class="h-tagline">{p.tagline}</p>
+            <p class="h-tagline">{p.description}</p>
           </div>
           <div class="h-card-foot">
-            <span class="h-tag">{p.tag}</span>
+            <span class="h-tag">{p.status}</span>
             <span class="h-arrow" aria-hidden="true">→</span>
           </div>
         </a>
       ))}
 
-      <a href="https://github.com/dethanev" target="_blank" rel="noopener" class="h-end brutal-border-thick brutal-shadow brutal-hover">
+      <a href="/projects/" class="h-end brutal-border-thick brutal-shadow brutal-hover">
         <span class="end-arrow">→</span>
-        <span class="end-text">看更多 on GitHub</span>
+        <span class="end-text">看全部作品</span>
       </a>
     </div>
 
@@ -170,7 +208,7 @@ const marqueeItems = [
       </p>
       <span class="live-badge" aria-hidden="true">
         <span class="live-dot"></span>
-        LIVE&nbsp; 正在寫 Blog
+        LIVE&nbsp; QuizLab · AlgoLab
       </span>
     </a>
   </section>
@@ -269,8 +307,61 @@ const marqueeItems = [
     flex-direction: column;
     height: 100%;
   }
+  .posts-grid :global(.desc) {
+    margin-block: auto;
+  }
   .posts-grid :global(.tags) {
+    margin-top: 1rem;
+  }
+
+  .labs-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+  .lab-card {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+  .lab-card.card-yellow { background: var(--accent-yellow); color: var(--text-on-yellow); }
+  .lab-card.card-lime { background: var(--accent-lime); color: var(--text-on-lime); }
+  .lab-media { display: block; }
+  .lab-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: 1200 / 630;
+    object-fit: cover;
+    border-bottom: 4px solid var(--ink);
+  }
+  .lab-body {
+    padding: 1.4rem 1.5rem 1.6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    flex: 1;
+  }
+  .lab-name {
+    font-family: var(--font-display);
+    font-weight: 900;
+    font-size: clamp(1.6rem, 3vw, 2.2rem);
+    line-height: 1;
+    letter-spacing: -0.03em;
+  }
+  .lab-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+  .lab-link {
+    align-self: flex-start;
     margin-top: auto;
+    background: var(--paper);
+    color: var(--ink);
+    text-decoration: none;
+    padding: 0.55rem 1rem;
+    font-family: var(--font-display);
+    font-weight: 800;
   }
 
   .stack-grid {
@@ -443,7 +534,7 @@ const marqueeItems = [
     font-size: clamp(2rem, 3.2vw, 2.6rem);
     line-height: 1;
     letter-spacing: -0.03em;
-    margin-bottom: 0.8rem;
+    margin-bottom: 4.6rem;
   }
   .h-tagline {
     font-size: 0.95rem;
@@ -678,7 +769,10 @@ const marqueeItems = [
   @media (max-width: 720px) {
     .ap-grid { grid-template-columns: 1fr; gap: 1.5rem; }
     .posts-grid { grid-template-columns: 1fr; }
+    .labs-grid { grid-template-columns: 1fr; }
     .stack-grid { grid-template-columns: repeat(2, 1fr); }
+    .stack-item { padding: 0.9rem 0.6rem; }
+    .stack-note { font-size: 0.7rem; }
     .cta-inner { flex-direction: column; text-align: center; }
   }
 </style>
