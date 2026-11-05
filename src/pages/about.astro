@@ -1,5 +1,6 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
+import { projects } from "~/data/projects";
 
 const wakatimeProfile = "https://wakatime.com/@Dethanev";
 const wakatimeBadge = "https://dethanev.app/wakatime-badge.svg";
@@ -20,15 +21,15 @@ const factoids = [
   { k: "現居", v: "台灣" },
   { k: "身份", v: "資工系大三生" },
   { k: "角色", v: "Developer / Server Admin" },
-  { k: "目前", v: "Building Blog" },
-  { k: "主線", v: "App / Web /Server" },
+  { k: "目前", v: "個人專案 / DSA" },
+  { k: "主線", v: "Web / App / Server" },
   { k: "環境", v: "macOS / Linux" },
 ];
 
 const focusAreas = [
   {
-    title: "App 與產品實作",
-    body: "主要用 Flutter 做跨平台 App，也持續關注 Swift、ARKit、RealityKit 與互動體驗。比起只把畫面刻完，我更在意流程能不能真的被使用。",
+    title: "Web 工具與 App",
+    body: "用 Nuxt、Astro 做 Web 工具，像 QuizLab、AlgoLab；App 則以 Flutter 為主，也關注 Swift 與 ARKit。比起只把畫面刻完，我更在意流程能不能真的被使用。",
   },
   {
     title: "後端與資料",
@@ -47,6 +48,8 @@ const certifications = [
   { name: "HITCON 台灣駭客", category: "資安社群", color: "language", date: "2025-08-15", href: "https://hitcon.org/2025/zh-TW/" },
   { name: "ITS Java", category: "程式與資訊", color: "it", date: "2026-05-20", href: "https://www.gotop.com.tw/certifications/itemdetails.aspx?subid=230" },
   { name: "ITS Database", category: "程式與資訊", color: "it", date: "2026-06-10", href: "https://www.gotop.com.tw/certifications/itemdetails.aspx?subid=226" },
+  { name: "ITS Python", category: "程式與資訊", color: "it", date: "2026-11-05", href: "https://www.gotop.com.tw/certifications/itemdetails.aspx?subid=222" },
+  { name: "ITS Artificial Intelligence", category: "程式與資訊", color: "it", date: "2026-11-05", href: "https://www.gotop.com.tw/certification/Certiport/ITSAI/default.html" },
   { name: "高斯數學競賽｜優等", category: "數學競賽", color: "math", date: "2025-12-03", href: "https://zh.wikipedia.org/zh-tw/%E5%8D%A1%E7%88%BE%C2%B7%E5%BC%97%E9%87%8C%E5%BE%B7%E9%87%8C%E5%B8%8C%C2%B7%E9%AB%98%E6%96%AF" },
   { name: "高斯數學競賽｜甲等", category: "數學競賽", color: "math", date: "2025-06-04", href: "https://zh.wikipedia.org/zh-tw/%E5%8D%A1%E7%88%BE%C2%B7%E5%BC%97%E9%87%8C%E5%BE%B7%E9%87%8C%E5%B8%8C%C2%B7%E9%AB%98%E6%96%AF" },
 ];
@@ -60,33 +63,6 @@ const mosCertifications = [
   { name: "Word 2019 Expert", date: "2026-05-08", href: "https://learn.microsoft.com/zh-tw/credentials/certifications/mos-word-expert-2019/?practice-assessment-type=certification" },
   { name: "PowerPoint 2019 Associate", date: "2025-11-11", href: "https://learn.microsoft.com/zh-tw/credentials/certifications/mos-powerpoint-2019/?practice-assessment-type=certification" },
   { name: "PowerPoint 2016", date: "2025-05-19", href: "https://learn.microsoft.com/zh-tw/credentials/certifications/mos-powerpoint-2016/?practice-assessment-type=certification" },
-];
-
-const projects = [
-  {
-    name: "LinkPet",
-    status: "Teamwork",
-    href: "/blog/2026-04-18-linkpet-ar-ai-companion/",
-    body: "AR 與 AI 陪伴 App 概念，想讓虛擬角色不只是聊天框，而是能在 2D / AR 模式出現在生活空間裡。特色是語音互動、觸碰與餵食反應、個人化設定與本機記憶，讓陪伴感有延續性。這也是一次雙人合作的比賽型專案練習，重點放在把情緒陪伴拆成可落地的互動體驗。",
-  },
-  {
-    name: "DriveWorth",
-    status: "Lessons",
-    href: "/blog/2026-02-11-driveworth-app/",
-    body: "買車前養車成本評估工具，想幫使用者在下手前看懂 3 到 5 年的長期支出。最有趣的是里程節點預算卡，把大保養、耗材、稅金、保險和油耗變成比較白話的成本提醒。它結合汽車修護背景與資料模型思考，適合發展成購車決策輔助工具。",
-  },
-  {
-    name: "HawkGuard",
-    status: "Archived",
-    href: "/blog/2025-12-03-hawkguard-app/",
-    body: "反詐騙 App 概念，讓使用者輸入文字、網址、電話或圖片後取得風險提示。特色是把單次分析、分析紀錄、社群回報和論壇整合成一個防護網，不只靠個人直覺判斷。技術上以 Flutter 為主，並規劃 Supabase、FastAPI、OCR 與網址檢測等延伸能力。",
-  },
-  {
-    name: "Tap2Go",
-    status: "Done",
-    href: "/blog/2025-08-07-tap2go-flutter-ui-practice/",
-    body: "第一個自己完成的 Flutter App Demo，從環境安裝、畫面組成、頁面切換到 Android APK Release 都走過一次。它用 BottomNavigationBar 搭配 PageView 做多頁切換，也加入 AppBar 動態變色、Drawer / EndDrawer 和音效回饋。對我來說，Tap2Go 最有趣的是它真的跑進手機裡，把「看教學」變成「做出可以操作的 App」。",
-  },
 ];
 
 const stackGroups = [
@@ -201,7 +177,7 @@ const stackGroups = [
         </div>
         <div class="hero-line">
           <span>Build</span>
-          <p>主要做 應用程式、後端服務、自架系統，也會把資料驅動原型做成真的東西。</p>
+          <p>主要做 Web 工具、App 和後端服務，也會把學習中遇到的需求做成能用的東西。</p>
         </div>
         <div class="hero-line">
           <span>Write</span>
@@ -272,15 +248,22 @@ const stackGroups = [
       </h2>
       <div class="project-list grid-clear">
         {projects.map((project) => (
-          <a class="project-row" href={project.href} aria-label={`閱讀 ${project.name} 文章`}>
+          <a
+            class="project-row"
+            href={project.href ?? project.siteUrl}
+            target={project.href ? undefined : "_blank"}
+            rel={project.href ? undefined : "noopener"}
+            aria-label={project.href ? `閱讀 ${project.name} 文章` : `開啟 ${project.name} 網站`}
+          >
             <div class="project-head">
               <h3>{project.name}</h3>
               <span>{project.status}</span>
             </div>
-            <p>{project.body}</p>
+            <p>{project.description}</p>
           </a>
         ))}
       </div>
+      <a href="/projects/" class="all-projects grid-clear">全部作品 →</a>
     </div>
 
     <a
@@ -647,9 +630,11 @@ const stackGroups = [
     display: grid;
     grid-template-columns: repeat(4, minmax(0, 1fr));
     gap: 0.75rem;
+    /* opening the MOS card should not stretch the cards beside it */
+    align-items: start;
   }
   .certification-card {
-    min-height: 7rem;
+    min-height: 7.5rem;
     padding: 0.75rem 0.9rem;
     box-sizing: border-box;
     position: relative;
@@ -661,9 +646,9 @@ const stackGroups = [
   .certification-card.cert-auto,
   .certifications-grid .certification-card.cert-auto:hover { background: var(--accent-yellow); color: var(--text-on-yellow) !important; border-color: var(--ink); }
   .certification-card.cert-it,
-  .certifications-grid .certification-card.cert-it:hover { background: var(--accent-violet); color: var(--text-on-violet) !important; border-color: var(--ink); }
+  .certifications-grid .certification-card.cert-it:hover { background: var(--accent-pink); color: var(--text-on-pink) !important; border-color: var(--ink); }
   .certification-card.cert-math,
-  .certifications-grid .certification-card.cert-math:hover { background: var(--accent-pink); color: var(--text-on-pink) !important; border-color: var(--ink); }
+  .certifications-grid .certification-card.cert-math:hover { background: var(--accent-violet); color: var(--text-on-violet) !important; border-color: var(--ink); }
   .certification-card.cert-language,
   .certifications-grid .certification-card.cert-language:hover { background: var(--accent-lime); color: var(--text-on-lime) !important; border-color: var(--ink); }
   .certification-card.cert-security,
@@ -689,14 +674,15 @@ const stackGroups = [
   }
   .certification-card h3 {
     font-size: 1.15rem;
-    line-height: 1.35;
+    line-height: 1.15;
     margin: 0;
     position: absolute;
     inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 0.75rem;
+    /* keep two-line names clear of the category label and the date */
+    padding: 1.5rem 0.75rem;
     text-align: center;
     box-sizing: border-box;
   }
@@ -723,14 +709,15 @@ const stackGroups = [
     opacity: 0.75;
   }
   .mos-card {
-    grid-column: 1 / -1;
+    grid-column: span 2;
     background: var(--accent-blue);
     color: var(--text-on-blue);
     border-color: var(--ink);
     overflow: hidden;
   }
   .mos-card summary {
-    min-height: 5.5rem;
+    /* match the 7.5rem certification cards (minus the 4px borders) */
+    min-height: calc(7.5rem - 8px);
     padding: 0.75rem 0.9rem;
     box-sizing: border-box;
     display: flex;
@@ -765,7 +752,7 @@ const stackGroups = [
   .mos-card[open] .mos-toggle { transform: rotate(45deg); }
   .mos-card ul {
     display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-columns: 1fr;
     gap: 0.55rem;
     margin: 0;
     padding: 0 0.9rem 0.9rem;
@@ -877,6 +864,17 @@ const stackGroups = [
     white-space: nowrap;
   }
   .project-row p { margin: 0; }
+  .all-projects {
+    display: inline-block;
+    margin-top: 1.2rem;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    color: var(--ink);
+    text-decoration: none;
+    border-bottom: 3px solid var(--accent-pink);
+    padding-bottom: 2px;
+  }
+  .all-projects:hover { background: var(--accent-yellow); color: var(--text-on-yellow); }
 
   .stack-groups {
     display: grid;
@@ -1010,7 +1008,7 @@ const stackGroups = [
 
   @media (max-width: 640px) {
     .about { gap: 2.4rem; }
-    .big-title { font-size: 3rem; }
+    .big-title { font-size: min(3rem, 11vw); }
     .big-title .accent { box-sizing: border-box; max-width: 100%; }
     .fact-list { grid-template-columns: 1fr; }
     .wakatime-card {
