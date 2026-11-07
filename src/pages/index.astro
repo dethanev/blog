@@ -92,7 +92,7 @@ const marqueeItems = [
           )}
           <div class="lab-body">
             <h3 class="lab-name">{p.name}</h3>
-            <p class="lab-desc">{p.description}</p>
+            <p class="lab-desc" data-nosnippet>{p.description}</p>
             {p.siteUrl && (
               <a href={p.siteUrl} target="_blank" rel="noopener" class="lab-link brutal-border brutal-shadow-sm brutal-hover">
                 開啟 {p.name} <span aria-hidden="true">↗</span>
