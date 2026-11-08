@@ -1,0 +1,38 @@
+---
+title: "一個品牌、三個子網域：Blog、QuizLab、AlgoLab 怎麼串在一起"
+description: "待補：一句話說明為什麼把工具拆成獨立子網域，以及怎麼讓它們看起來是同一個品牌。"
+date: 2026-11-08T20:00:00+08:00
+tags: ["web", "seo", "cloudflare"]
+draft: true
+variant: "pink"
+project: "blog"
+---
+
+{/* 大綱（可選篇）：每段的「待補」換成自己的內容後再改 draft: false；description 留著「待補」時 check:build-output 會擋下來，內文的「待補」要自己確認刪乾淨。 */}
+
+## 為什麼不全部放進 Blog
+
+- 各專案框架不同（Astro、Nuxt），部署與測試也各自獨立
+- 待補：拆開之後實際的好處與麻煩
+
+## 共用的設計語言
+
+- Neubrutalism：米色底、墨黑、粗邊框、無模糊硬陰影、高彩度點綴
+- 強度不同：Blog 最強烈，QuizLab 柔化成適合長時間閱讀，AlgoLab 以工作區為主
+- 待補：同一套風格在不同用途上怎麼調整，附三站截圖
+
+## 讓搜尋引擎知道是同一個人
+
+- 三站的 JSON-LD `author` 都指向 Blog 宣告的同一個 Person
+- 標題格式與 OG 圖
+- 待補：Search Console 上看到的變化
+
+## 部署
+
+- Cloudflare Pages，Git 連動 GitHub `main` 自動建置
+- 雲端建置不跑測試，所以推送前在本機跑過
+- 待補：子網域與 DNS 怎麼設定
+
+## 結語
+
+- 待補：下一個工具會不會照同一套做
