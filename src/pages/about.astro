@@ -1,6 +1,8 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
-import { projects } from "~/data/projects";
+import { projects, getProjectPostHrefs } from "~/data/projects";
+
+const postHrefs = await getProjectPostHrefs();
 
 const wakatimeProfile = "https://wakatime.com/@Dethanev";
 const wakatimeBadge = "https://dethanev.app/wakatime-badge.svg";
@@ -247,21 +249,24 @@ const stackGroups = [
         <span class="badge pink">projects</span>
       </h2>
       <div class="project-list grid-clear">
-        {projects.map((project) => (
-          <a
-            class="project-row"
-            href={project.href ?? project.siteUrl}
-            target={project.href ? undefined : "_blank"}
-            rel={project.href ? undefined : "noopener"}
-            aria-label={project.href ? `閱讀 ${project.name} 文章` : `開啟 ${project.name} 網站`}
-          >
-            <div class="project-head">
-              <h3>{project.name}</h3>
-              <span>{project.status}</span>
-            </div>
-            <p>{project.description}</p>
-          </a>
-        ))}
+        {projects.map((project) => {
+          const postHref = postHrefs.get(project.id);
+          return (
+            <a
+              class="project-row"
+              href={postHref ?? project.siteUrl}
+              target={postHref ? undefined : "_blank"}
+              rel={postHref ? undefined : "noopener"}
+              aria-label={postHref ? `閱讀 ${project.name} 文章` : `開啟 ${project.name} 網站`}
+            >
+              <div class="project-head">
+                <h3>{project.name}</h3>
+                <span>{project.status}</span>
+              </div>
+              <p>{project.description}</p>
+            </a>
+          );
+        })}
       </div>
       <a href="/projects/" class="all-projects grid-clear">全部作品 →</a>
     </div>

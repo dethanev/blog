@@ -7,8 +7,9 @@ import Sticker from "~/components/Sticker.astro";
 import { getCollection } from "astro:content";
 import { sortPostsNewestFirst } from "~/lib/utils";
 import { Image } from "astro:assets";
-import { projects } from "~/data/projects";
+import { projects, getProjectPostHrefs } from "~/data/projects";
 
+const postHrefs = await getProjectPostHrefs();
 const posts = sortPostsNewestFirst(await getCollection("posts", ({ data }) => !data.draft)).slice(0, 3);
 
 const stack = [
@@ -152,7 +153,7 @@ const marqueeItems = [
 
       {selectedWork.map((p, i) => (
         <a
-          href={p.href}
+          href={postHrefs.get(p.id)}
           class:list={["h-card brutal-border-thick brutal-shadow", `card-${p.color}`]}
           aria-label={`閱讀 ${p.name} 相關文章`}
         >

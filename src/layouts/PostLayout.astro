@@ -6,6 +6,7 @@ import Comments from "~/components/Comments.astro";
 import ViewCounter from "~/components/ViewCounter.astro";
 import { formatDate, readingTime } from "~/lib/utils";
 import type { CollectionEntry } from "astro:content";
+import { projects } from "~/data/projects";
 
 interface Props {
   post: CollectionEntry<"posts">;
@@ -17,6 +18,7 @@ const { post, prev, next, rawBody } = Astro.props;
 const { title, displayTitle, description, date, tags } = post.data;
 const titleLines = (displayTitle ?? title).split("\n");
 const minutes = readingTime(rawBody);
+const project = projects.find((p) => p.id === post.data.project);
 ---
 
 <BaseLayout title={title} description={description} article={{ publishedTime: date, tags }}>
@@ -47,6 +49,19 @@ const minutes = readingTime(rawBody);
         <slot />
       </div>
     </div>
+
+    {project && (
+      <a
+        href={project.siteUrl ?? "/projects/"}
+        target={project.siteUrl ? "_blank" : undefined}
+        rel={project.siteUrl ? "noopener" : undefined}
+        class="nav-card related-project brutal-border-thick brutal-shadow brutal-hover"
+      >
+        <span class="nav-label">相關作品 · {project.status}</span>
+        <span class="nav-title">{project.name} <span aria-hidden="true">{project.siteUrl ? "↗" : "→"}</span></span>
+        <span class="related-desc">{project.description}</span>
+      </a>
+    )}
 
     <ClapButton postId={post.id} />
 
@@ -161,6 +176,8 @@ const minutes = readingTime(rawBody);
     justify-content: center;
   }
   .nav-card.next { text-align: right; }
+  .related-project { margin-top: 3rem; }
+  .related-desc { font-size: 0.95rem; line-height: 1.6; }
   .nav-label {
     font-family: var(--font-mono);
     font-size: 0.75rem;

@@ -1,8 +1,9 @@
 ---
 import BaseLayout from "~/layouts/BaseLayout.astro";
 import { Image } from "astro:assets";
-import { projects } from "~/data/projects";
+import { projects, getProjectPostHrefs } from "~/data/projects";
 
+const postHrefs = await getProjectPostHrefs();
 const liveProjects = projects.filter((p) => p.featured);
 const otherProjects = projects.filter((p) => !p.featured);
 ---
@@ -63,8 +64,8 @@ const otherProjects = projects.filter((p) => !p.featured);
                     開啟 {p.name} <span aria-hidden="true">↗</span>
                   </a>
                 )}
-                {p.href && (
-                  <a href={p.href} class="btn btn-paper brutal-border brutal-shadow-sm brutal-hover">
+                {postHrefs.has(p.id) && (
+                  <a href={postHrefs.get(p.id)} class="btn btn-paper brutal-border brutal-shadow-sm brutal-hover">
                     開發紀錄 <span aria-hidden="true">→</span>
                   </a>
                 )}
@@ -82,7 +83,7 @@ const otherProjects = projects.filter((p) => !p.featured);
       <div class="more-grid" data-stagger>
         {otherProjects.map((p) => (
           <a
-            href={p.href}
+            href={postHrefs.get(p.id)}
             class:list={["more-card brutal-border-thick brutal-shadow brutal-hover", `card-${p.color}`]}
             aria-label={`閱讀 ${p.name} 相關文章`}
             data-stagger-item

@@ -11,6 +11,8 @@ const posts = defineCollection({
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     variant: z.enum(["paper", "pink", "yellow", "lime", "violet", "blue"]).default("paper"),
+    /** Project id from src/data/projects.ts. */
+    project: z.string().optional(),
   }),
 });
 

@@ -38,6 +38,36 @@ test("RSS lists every published post newest first with absolute links", async ()
   assert.deepEqual(links, posts.map(({ id }) => `https://dethanev.app/blog/${id}/`));
 });
 
+test("posts tagged with a project link to it, and the project links back to its newest post", async () => {
+  // A typo in `project:` would silently drop both links, so every id must resolve to a real project.
+  const projectsSource = await readFile(new URL("src/data/projects.ts", root), "utf8");
+  const projectNames = new Map(
+    [...projectsSource.matchAll(/id: "([^"]+)",\s*name: "([^"]+)"/g)].map((match) => [match[1], match[2]]),
+  );
+  const contentDirectory = new URL("src/content/posts/", root);
+  const newestPostByProject = new Map();
+
+  for (const file of (await readdir(contentDirectory)).filter((name) => name.endsWith(".mdx"))) {
+    const frontmatter = (await readFile(new URL(file, contentDirectory), "utf8")).split("---")[1] ?? "";
+    const project = frontmatter.match(/^project:\s*"?([^"\n]+)"?$/m)?.[1];
+    if (!project || /^draft:\s*true$/m.test(frontmatter)) continue;
+
+    const slug = file.replace(/\.mdx$/, "");
+    assert.ok(projectNames.has(project), `${file} uses unknown project id "${project}"`);
+    const html = await readFile(new URL(`blog/${slug}/index.html`, dist), "utf8");
+    assert.match(html, new RegExp(`class="[^"]*related-project[^"]*"[\\s\\S]*?${projectNames.get(project)}`), slug);
+
+    const date = new Date(frontmatter.match(/^date:\s*(.+)$/m)[1].trim());
+    const newest = newestPostByProject.get(project);
+    if (!newest || date > newest.date) newestPostByProject.set(project, { slug, date });
+  }
+
+  const projectsPage = await readFile(new URL("projects/index.html", dist), "utf8");
+  for (const { slug } of newestPostByProject.values()) {
+    assert.match(projectsPage, new RegExp(`href="/blog/${slug}/"`), slug);
+  }
+});
+
 test("article output includes article metadata and BlogPosting data", async () => {
   const blogDirectory = new URL("blog/", dist);
   const routes = (await readdir(blogDirectory, { withFileTypes: true }))
